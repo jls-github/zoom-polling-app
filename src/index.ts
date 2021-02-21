@@ -18,11 +18,7 @@ app.get("/", (req, res) => {
   if (req.query.code) {
     getAccessToken(req.query.code as string)
     .then(data => {
-      if (data["access_token"]) {
-        res.render("index", {accessToken: data["access_token"], scope: data["scope"]})
-      } else {
-        res.send("could not verify access")
-      }
+      res.render("index", {accessToken: data["access_token"], scope: data["scope"]})
     })
     .catch(error => {
       console.log(error)
@@ -57,7 +53,7 @@ app.listen(port, () => {
 async function getAccessToken(oauthCode: string): Promise<Record<string, any>> {
   console.log("hello-----------")
   const res = await axios.get(
-    `zoom.us/oauth/token?grant_type=authorization_code&code=${oauthCode}&redirect_uri=https://zoom-poller.herokuapp.com/`,
+    `https://zoom.us/oauth/token?grant_type=authorization_code&code=${oauthCode}&redirect_uri=https://zoom-poller.herokuapp.com/`,
     { headers: { "Authorization": `Basic ${oauthCode}` } }
   );
   console.log('hello2----------')
