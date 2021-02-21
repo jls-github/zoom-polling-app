@@ -31,12 +31,8 @@ app.get("/", (req, res) => {
   }
 });
 
-app.get("/polls", (req, res) => {
-  res.render("polls", { code: req.query.code });
-});
-
-app.post("/polls", (req, res) => {
-  res.send("post new poll");
+app.post("/", (req, res) => {
+  res.send("Question submitted (not really)")
 });
 
 app.listen(port, () => {
