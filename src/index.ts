@@ -15,6 +15,10 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/polls", (req, res) => {
+  res.send(req.params);
+})
+
 app.post("/polls", (req, res) => {
   res.send("post new poll");
 });
