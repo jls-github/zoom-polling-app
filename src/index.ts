@@ -18,6 +18,8 @@ app.get("/", (req, res) => {
   if (req.query.code) {
     getAccessToken(req.query.code as string)
     .then(data => {
+      // tslint:disable-next-line:no-console
+      console.log(data["access_token"])
       if (data["access_token"]) {
         res.render("index", {accessToken: data["access_token"], scope: data["scope"]})
       } else {
