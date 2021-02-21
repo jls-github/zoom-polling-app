@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/polls", (req, res) => {
-  res.send(req.params);
+  res.send(req.query.code);
 })
 
 app.post("/polls", (req, res) => {
