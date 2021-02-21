@@ -29,7 +29,7 @@ app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`);
 });
 
-async function getAccessToken(oauthCode: string): Promise<Record<string, any>> {
+async function getAccessToken(oauthCode: string): Promise<void> {
 
   const options = {
     hostname: 'zoom.us',
@@ -40,21 +40,5 @@ async function getAccessToken(oauthCode: string): Promise<Record<string, any>> {
     }
   }
 
-  https.request('https://zoom.us/oauth/token', {method: "post"}, (resp) => {
-  let data = '';
-
-  // A chunk of data has been received.
-  resp.on('data', (chunk) => {
-    data += chunk;
-  });
-
-  // The whole response has been received. Print out the result.
-  resp.on('end', () => {
-    console.log(JSON.parse(data).explanation);
-  });
-
-}).on("error", (err) => {
-  console.log("Error: " + err.message);
-});
-  return {"hello": "world"}
+  https.request(options, (resp) => {});
 }
