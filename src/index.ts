@@ -16,6 +16,10 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.post("/", async (req, res) => {
+  res.render("continue", {token: "hello"})
+})
+
 app.get("/polls", (req, res) => {
   res.render("polls", {code: req.query.code});
 });
@@ -29,16 +33,16 @@ app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`);
 });
 
-// async function getAccessToken(oauthCode: string): Promise<void> {
+async function getAccessToken(oauthCode: string): Promise<void> {
 
-//   const options = {
-//     hostname: 'zoom.us',
-//     path: '/oauth/token',
-//     method: 'post',
-//     headers: {
-//       'Authorization': `Basic ${oauthCode}` 
-//     }
-//   }
+  const options = {
+    hostname: 'zoom.us',
+    path: '/oauth/token',
+    method: 'post',
+    headers: {
+      'Authorization': `Basic ${oauthCode}` 
+    }
+  }
 
-//   // https.request(options, (resp) => {});
-// }
+  https.request(options, (resp) => null);
+}
