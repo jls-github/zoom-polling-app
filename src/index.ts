@@ -55,9 +55,8 @@ app.listen(port, () => {
 
 async function getAccessToken(oauthCode: string): Promise<Record<string, any>> {
   console.log("hello-----------")
-  const res = await axios.post(
+  const res = await axios.get(
     `zoom.us/oauth/token?grant_type=authorization_code&code=${oauthCode}&redirect_uri=https://zoom-poller.herokuapp.com/`,
-    {},
     { headers: { Authorization: `Basic ${oauthCode}` } }
   );
   console.log(res.data)
