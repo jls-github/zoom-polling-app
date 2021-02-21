@@ -32,14 +32,6 @@ app.get("/", (req, res) => {
   }
 });
 
-app.get("/auth", (req, res) => {
-  res.render("continue", { token: "hello" });
-});
-
-app.post("auth", (req, res) => {
-  res.send("post auth");
-});
-
 app.get("/polls", (req, res) => {
   res.render("polls", { code: req.query.code });
 });
@@ -55,11 +47,13 @@ app.listen(port, () => {
 
 async function getAccessToken(oauthCode: string): Promise<Record<string, any>> {
   console.log("hello-----------");
+  const idAndSecret = `${process.env.OAUTH_CLIENT_ID}:${process.env.OAUTH_CLIENT_SECRET}`
+  const oAuthBuffer = Buffer.from(idAndSecret).toString('base64');
   const res = await axios.get(
     `https://zoom.us/oauth/token?grant_type=authorization_code&code=${oauthCode}&redirect_uri=https://zoom-poller.herokuapp.com/`,
     {
       headers: {
-        Authorization: `Basic ${process.env.OAUTH_CLIENT_ID}:${process.env.OAUTH_CLIENT_SECRET}`,
+        Authorization: `Basic ${oAuthBuffer}`,
         Accept: "application/json",
       },
     }
