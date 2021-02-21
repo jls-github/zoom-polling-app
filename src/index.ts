@@ -24,8 +24,7 @@ app.get("/", (req, res) => {
         });
       })
       .catch((error) => {
-        console.log(error);
-        res.send("hello world");
+        res.send(`An error occured on the server: ${error}`);
       });
   } else {
     res.redirect(zoomRedirectUrl);
@@ -46,9 +45,8 @@ app.listen(port, () => {
 });
 
 async function getAccessToken(oauthCode: string): Promise<Record<string, any>> {
-  console.log("hello-----------");
-  const idAndSecret = `${process.env.OAUTH_CLIENT_ID}:${process.env.OAUTH_CLIENT_SECRET}`
-  const oAuthBuffer = Buffer.from(idAndSecret).toString('base64');
+  const idAndSecret = `${process.env.OAUTH_CLIENT_ID}:${process.env.OAUTH_CLIENT_SECRET}`;
+  const oAuthBuffer = Buffer.from(idAndSecret).toString("base64");
   const res = await axios.post(
     `https://zoom.us/oauth/token?grant_type=authorization_code&code=${oauthCode}&redirect_uri=https://zoom-poller.herokuapp.com/`,
     {},
@@ -59,8 +57,6 @@ async function getAccessToken(oauthCode: string): Promise<Record<string, any>> {
       },
     }
   );
-  console.log("hello2----------");
-  console.log(res);
   const data = res.data;
   if (data["access_token"]) {
     return { access_token: data["access_token"], scope: data["scope"] };
