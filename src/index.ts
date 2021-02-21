@@ -49,8 +49,9 @@ async function getAccessToken(oauthCode: string): Promise<Record<string, any>> {
   console.log("hello-----------");
   const idAndSecret = `${process.env.OAUTH_CLIENT_ID}:${process.env.OAUTH_CLIENT_SECRET}`
   const oAuthBuffer = Buffer.from(idAndSecret).toString('base64');
-  const res = await axios.get(
+  const res = await axios.post(
     `https://zoom.us/oauth/token?grant_type=authorization_code&code=${oauthCode}&redirect_uri=https://zoom-poller.herokuapp.com/`,
+    {},
     {
       headers: {
         Authorization: `Basic ${oAuthBuffer}`,
