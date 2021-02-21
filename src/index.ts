@@ -14,14 +14,16 @@ const zoomRedirectUrl = `https://zoom.us/oauth/authorize?response_type=code&clie
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-app.get("/", async (req, res) => {
+app.get("/", (req, res) => {
   if (req.query.code) {
-    const data = await getAccessToken(req.query.code as string);
-    if (data["access_token"]) {
-      res.render("index", {accessToken: data["access_token"], scope: data["scope"]})
-    } else {
-      res.send("could not verify access")
-    }
+    getAccessToken(req.query.code as string)
+    .then(data => {
+      if (data["access_token"]) {
+        res.render("index", {accessToken: data["access_token"], scope: data["scope"]})
+      } else {
+        res.send("could not verify access")
+      }
+    })
   } else {
     res.redirect(zoomRedirectUrl);
   }
