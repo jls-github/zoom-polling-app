@@ -25,6 +25,7 @@ app.get("/", (req, res) => {
       }
     })
     .catch(error => {
+      console.log(error)
       res.send("hello world")
     })
   } else {
@@ -59,6 +60,7 @@ async function getAccessToken(oauthCode: string): Promise<Record<string, any>> {
     `zoom.us/oauth/token?grant_type=authorization_code&code=${oauthCode}&redirect_uri=https://zoom-poller.herokuapp.com/`,
     { headers: { "Authorization": `Basic ${oauthCode}` } }
   );
+  console.log('hello2----------')
   console.log(res)
   const data = res.data;
   if (data["access_token"]) {
