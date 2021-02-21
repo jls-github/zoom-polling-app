@@ -16,9 +16,13 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.post("/", async (req, res) => {
+app.get("/auth", (req, res) => {
   res.render("continue", {token: "hello"})
-})
+});
+
+app.post("auth", (req, res) => {
+  res.send("post auth")
+});
 
 app.get("/polls", (req, res) => {
   res.render("polls", {code: req.query.code});
