@@ -1,5 +1,4 @@
 import * as Yup from "yup";
-import { string } from "yup/lib/locale";
 
 const answerSchema = Yup.object({
   text: Yup.string().required("Answer text is required."),
